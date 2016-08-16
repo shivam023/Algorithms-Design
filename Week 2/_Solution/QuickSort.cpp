@@ -11,27 +11,36 @@ void swap(int *a, int *b){
     *b = temp;
 }
 
+/*int median_of_three(int *a, int low, int high){
+    int mid = low+(high-low)/2;
+    if(a[mid]<a[left])
+        swap(&a[mid], &a[left])
+}*/
+
 int partition(int *a, int low, int high){
     comparisons+=high-low;
+    //int pivot = a[(high-low+1)/2];
+    int *add_pivot = &a[low];
     int pivot = a[low];
-    while(low<high){
-        if(a[low]>pivot && a[high]<pivot){
+    low++;
+    while(low<=high){
+        if(a[low]>=pivot && a[high]<=pivot){
             swap(&a[low], &a[high]);
             low++; high--;
             //comparisons++;
         }
         else{
-            if(a[low]<=pivot){
+            if(a[low]<pivot){
                 low++;
                 //comparisons++;
             }
-            if(a[high]>=pivot){
+            if(a[high]>pivot){
                 high--;
                 //comparisons++;
             }
         }
     }
-    swap(&pivot, &a[high]);
+    swap(add_pivot, &a[high]);
     return high;
 }
 
@@ -51,8 +60,6 @@ int main(){
         i++;
     }
     int n=i;
-    QuickSort(a,0, n-1);
+    QuickSort(a, 0, n-1);
     cout<<comparisons<<endl;
-    //for(int i=0;i<n;i++)
-      //  cout<<a[i]<<endl;
 }
