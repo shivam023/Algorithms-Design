@@ -19,29 +19,15 @@ void swap(int *a, int *b){
 
 int partition(int *a, int low, int high){
     comparisons+=high-low;
-    //int pivot = a[(high-low+1)/2];
-    int *add_pivot = &a[low];
-    int pivot = a[low];
-    low++;
-    while(low<=high){
-        if(a[low]>=pivot && a[high]<=pivot){
-            swap(&a[low], &a[high]);
-            low++; high--;
-            //comparisons++;
-        }
-        else{
-            if(a[low]<pivot){
-                low++;
-                //comparisons++;
-            }
-            if(a[high]>pivot){
-                high--;
-                //comparisons++;
-            }
-        }
+    int i=low+1, j, pivot=a[low];
+    for(j=low+1; j<=high; j++){
+          if(a[j]<pivot){
+              swap(&a[j], &a[i]);
+              i++;
+          }
     }
-    swap(add_pivot, &a[high]);
-    return high;
+    swap(&a[i-1], &a[low]);
+    return i-1;
 }
 
 void QuickSort(int *a, int low, int high){
